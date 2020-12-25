@@ -5,6 +5,19 @@ import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import router from './router/index'
+import useFirebaseAuth from "./modules/firebaseauth"
 
-createApp(App).use(router).mount('#app')
+const {authCheck} = useFirebaseAuth();
 
+const app = createApp(App)
+.use(router)
+authCheck().then(()=>{
+    app.use(router);
+    return router.isReady();
+}).then(()=>{
+    app.mount('#app')
+})
+
+
+
+// createApp(App).use(router).mount('#app')

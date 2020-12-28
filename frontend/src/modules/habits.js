@@ -23,7 +23,11 @@ export default function useHabits() {
     .post("http://localhost:8080/api/addHabit", 
       newHabit
       )
-    .then((res) => load())
+    .then((res) => 
+    state.habits.push(newHabit)
+    // load()
+    // console.log("done")
+    )
     .catch((err) => console.log(err));
     
     console.log(newHabit.title + "added")
@@ -36,7 +40,10 @@ export default function useHabits() {
     .put("http://localhost:8080/api/updateHabit", 
       habit
       )
-    .then((res) => load())
+    .then((res) => 
+    // load()
+    console.log("done")
+    )
     .catch((err) => console.log(err));
     
     console.log(habit.title + "updated")

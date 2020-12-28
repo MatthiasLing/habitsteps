@@ -1,10 +1,11 @@
 <template>
   <header class="header">
     
-      <h1>HabitStep</h1>
+      <h1>HabitSteps</h1>
       <router-link to="/">HOME</router-link>
       <router-link to="/signup"> SignUp</router-link>
       <router-link to="/login"> LogIn</router-link>
+      <router-link to="/test"> Test</router-link>
   
   </header>
 </template>

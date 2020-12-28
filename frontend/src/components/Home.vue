@@ -3,11 +3,9 @@
     <div v-if="error">Parent: {{ error }}</div>
     <Suspense>
       <template #default>
-        <div>       
-          <div class= "row">
-          <Habits/>
-          <AddHabit/>
-            </div>
+        <div class="row">
+          <Habits  />
+          <AddHabit />
         </div>
       </template>
       <template #fallback>
@@ -24,52 +22,56 @@ import Habits from "./Habits";
 import AddHabit from "./addHabit";
 import Secondary from "./Secondary";
 import axios from "axios";
-import router from '../router/index'
-import useFirebaseAuth from "../modules/firebaseauth"
+import router from "../router/index";
+import useFirebaseAuth from "../modules/firebaseauth";
+import userStuff from "../modules/user";
 
-import { ref, onErrorCaptured } from "vue";
-import { useRouter } from 'vue-router';
+import { ref, onErrorCaptured, defineAsyncComponent } from "vue";
+import { useRouter } from "vue-router";
+import Loading from "./Loading.vue";
+var { loadUser, habits } = userStuff();
 
 export default {
   name: "Home",
-  setup() {
-    console.log("Home loaded")
-    var error = ref(null);
-
-    const { doLogout } = useFirebaseAuth();
-    const {router} = useRouter();
-    onErrorCaptured(e => {
-      error.value = e;
-    });
-
-    const dologout = async () => {
-      await doLogout()
-      router.replace({path:'/Login'})
-    }
-
-
-    return { 
-      error, 
-      dologout,
-      router: useRouter()
-      };
-  },
   components: {
     Habits,
     Secondary,
     AddHabit,
-  }
+    Loading,
+  },
+
+  setup() {
+    
+    
+    var { doLogout, user, authCheck } = useFirebaseAuth();
+    const { router } = useRouter();
+
+    var error = ref(null);
+
+    onErrorCaptured((e) => {
+      error.value = e;
+    });
+
+    const dologout = async () => {
+      await doLogout();
+      router.replace({ path: "/Login" });
+    };
+
+    return {
+      error,
+      dologout,
+      router: useRouter(),
+    };
+  },
 };
 </script>
 
 <style>
-
 #home {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-
 }
 </style>

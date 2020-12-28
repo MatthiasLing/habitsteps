@@ -3,22 +3,26 @@
    <h1>Signup</h1>
    <div class="form-col">
 
-          <!-- <div class="col"> -->
+          <div class="col">
+            <div>
             <input
               type="text"
               class="form-control form-control-lg"
               v-model="credentials.username"
-              name="username"
-              placeholder="Username"
+              name="email"
+              placeholder="Email"
             />
+            </div>
+            <div>
             <input
-              type="text"
+              type="password"
               class="form-control form-control-lg"
               v-model="credentials.password"
               name="password"
               placeholder="Password"
             />
-          <!-- </div> -->
+            </div>
+          </div>
 
         
         <div class="form-col">
@@ -65,14 +69,9 @@ export default {
 </script>
 
 <style>
- .habit-btn{
-        padding: 5px;
-        text-align: center;
-    }
+  .form-col{
+    margin: 10px;
+    padding: 10px;
+  }
 
-    .is-complete {
-        text-decoration: line-through;
-        opacity: 0.6;
-    }
-  
 </style>

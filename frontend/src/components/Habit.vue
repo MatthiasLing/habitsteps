@@ -41,7 +41,6 @@ export default {
   methods: {
 
     toggleSlide: function(event){
-      console.log("SDFSDFSFD")
       console.log(status)
     },
     

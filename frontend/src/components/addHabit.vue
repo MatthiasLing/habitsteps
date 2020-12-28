@@ -69,6 +69,10 @@
 <script>
 import useHabits from "../modules/habits";
 import axios from "axios";
+
+import useFirebaseAuth from "../modules/firebaseauth"
+
+var {authCheck, auth, user, email} = useFirebaseAuth();
 var { habits, error, load, reload, addToHabits } = useHabits();
 
 export default {
@@ -82,7 +86,6 @@ export default {
   },
   async setup() {
     // await load();
-    console.log(habits);
 
     return { habits, error };
   },
@@ -92,18 +95,21 @@ export default {
       console.log(this.modifier);
     },
     async addHabit(e) {
-      e.preventDefault();
-      console.log(this.type);
-      const newHabit = {
-        id: "649fd00c-3fd0-439e-b661-59c3667246b2",
-        title: this.title,
-        type: this.type + this.modifier,
-        status: 1,
-        notes: "some placeholder text",
-      };
-      addToHabits(newHabit);
+            const { logout , auth} = useFirebaseAuth();
+            await logout();
 
-      this.title = "";
+      // e.preventDefault();
+      // console.log(this.type);
+      // const newHabit = {
+      //   id: "649fd00c-3fd0-439e-b661-59c3667246b2",
+      //   title: this.title,
+      //   type: this.type + this.modifier,
+      //   status: 1,
+      //   notes: "some placeholder text",
+      // };
+      // addToHabits(newHabit);
+
+      // this.title = "";
     },
   },
 };

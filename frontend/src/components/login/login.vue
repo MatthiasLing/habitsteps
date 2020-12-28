@@ -5,14 +5,17 @@
 
           <!-- <div class="col"> -->
             <input
+              id = "in"
               type="text"
               class="form-control form-control-lg"
               v-model="credentials.username"
-              name="username"
-              placeholder="Username"
+              name="email"
+              placeholder="Email"
+              style = "width: 300px"
             />
             <input
-              type="text"
+              id = "in"
+              type="password"
               class="form-control form-control-lg"
               v-model="credentials.password"
               name="password"
@@ -39,21 +42,26 @@ import {useRoute, useRouter} from 'vue-router';
 import { ref, onErrorCaptured } from "vue";
 import router from '../../router/index'
 import useFirebaseAuth from "../../modules/firebaseauth"
+import userStuff from "../../modules/user"
 
 
 export default {
   name: "Login",
 
   setup (){
+      var {loadUser, day, habits, score } = userStuff();
 
-      const { login } = useFirebaseAuth();
+      const { login , auth, user} = useFirebaseAuth();
       const credentials = ref({
       username: "",
       password: "",
     });
       const doLogin = async () =>{
-        await login(credentials.value.username, credentials.value.password)
-        router.replace({path : "/"});
+        login(credentials.value.username, credentials.value.password).then(()=>{
+          loadUser(credentials.value.username).then(()=>{
+            router.replace({name:'Home'})
+          })
+        })
       }
 
       return {
@@ -65,14 +73,8 @@ export default {
 </script>
 
 <style>
- .habit-btn{
-        padding: 5px;
-        text-align: center;
-    }
-
-    .is-complete {
-        text-decoration: line-through;
-        opacity: 0.6;
-    }
-  
+#in{
+  width: 300px;
+}
+ 
 </style>

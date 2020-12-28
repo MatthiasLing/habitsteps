@@ -2,6 +2,9 @@ import { toRefs, reactive } from "vue";
 import firebase from 'firebase'
 // import 'firebase/auth'
 import router from '../router/index'
+import userStuff from './user'
+
+const {loadUser, habits} = userStuff();
 
 // firebase init - add your own config here
 const firebaseConfig = {
@@ -18,27 +21,35 @@ firebase.initializeApp(firebaseConfig)
 
 const auth = reactive({
     user: null,
+    email: null,
     initialized: false,
     error: null
 });
 
 // export utils/refs
-export default function () {
+export default function authCheck() {
 
     const login = (email, password) => {
-        console.log("login initiated")
-        return firebase
+        
+        return new Promise((resolve, reject) => {
+            firebase
             .auth()
             .signInWithEmailAndPassword(email, password)
             .then((user) => {
                 auth.user = user;
-                auth.error = null;
-                return user;
+                auth.email = user.email;
+                loadUser(auth.email).then(()=>{
+                    auth.error = null;
+                    resolve(true);
+                })
             }, error => {
                 console.log("login error")
                 auth.error = error
                 throw error
             })
+        });
+
+        
     }
 
     const logout = () => {
@@ -47,13 +58,13 @@ export default function () {
             .signOut()
             .then(() => {
                 auth.user = null;
+                auth.email = null;
                 console.log("user logged out");
             })
     }
 
     const signup = (email, password) => {
         console.log("signup initiated")
-        // console.log(email,password)
         if (!email || !password) {
             console.log("null signup")
             return null
@@ -63,6 +74,8 @@ export default function () {
             .createUserWithEmailAndPassword(email, password)
             .then((user) => {
                 auth.user = user;
+                auth.email = user.email;
+                console.log("signed up " + auth.email)
                 auth.error = null;
                 console.log("successful signup");
                 return user;
@@ -75,13 +88,12 @@ export default function () {
 
     // Run @ start
     const authCheck = () => {
-        console.log("auth check initialized");
         return new Promise((resolve, reject) => {
             !auth.initialized &&
                 firebase.auth().onAuthStateChanged(async (_user) => {
                     if (_user) {
                         auth.user = _user;
-                        console.log("local user found")
+                        auth.email = _user.email.toString();
                         router.replace({name:'Home'})
                     } else {
                         auth.user = null;

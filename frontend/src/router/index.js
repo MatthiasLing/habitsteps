@@ -4,6 +4,8 @@ import Home from '../components/Home';
 import Signup from '../components/login/signup';
 import Login from '../components/login/login';
 
+import TestApi from '../components/test';
+
 import useFirebaseAuth from '../modules/firebaseauth';
 const auth = useFirebaseAuth();
 
@@ -23,6 +25,11 @@ const routes = [
         path: '/login',
         name: 'Login',
         component: Login
+    },
+    {
+        path: '/test',
+        name: 'TestApi',
+        component: TestApi
     }
 ]
 
@@ -32,16 +39,11 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    console.log(to.fullPath, from.fullPath)
+    // console.log(to.fullPath, from.fullPath)
     if (to.name!=='Signup' && to.name!=='Login' && !auth.user.value){
         console.log("route 1: must sign in")
         next({ name: 'Signup' })
     }
-    // else 
-    // if (to.fullPath == "/home") {
-    //     console.log("route 2")
-    //     next()
-    // }
     else {
         console.log("route 2: other")
         next()

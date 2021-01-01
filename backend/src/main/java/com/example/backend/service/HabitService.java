@@ -28,7 +28,7 @@ public class HabitService {
         return habitDao.getAllHabits();
     }
 
-    public int updateHabit(UUID id, Habit habit){
+    public int updateHabit(String id, Habit habit){
         return habitDao.updateHabit(id, habit);
     }
 }

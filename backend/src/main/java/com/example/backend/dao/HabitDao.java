@@ -7,14 +7,14 @@ import java.util.UUID;
 
 public interface HabitDao {
 
-    int insertHabit(UUID id, Habit habit);
+    int insertHabit(String id, Habit habit);
 
     default int addHabit(Habit habit){
-        UUID id = UUID.randomUUID();
+        String id = UUID.randomUUID().toString();
         return insertHabit(id, habit);
     }
 
-    int updateHabit(UUID id, Habit habit);
+    int updateHabit(String id, Habit habit);
 
     List<Habit> getAllHabits();
 }

@@ -1,8 +1,8 @@
 <template>
-  <div style="margin: 20px">
-    <h1>Tuesday, Jan. 14</h1>
+  <div style="margin: 20px; width: 400px">
+    <h1>{{ currDate }}</h1>
     <form>
-      <div class="form-col">
+      <div class="form-col" style="margin: 20px; width: 400px">
         <div class="form-row">
           <div class="col">
             <input
@@ -16,11 +16,36 @@
         </div>
         <div class="form-row">
           <div class="col">
-            <select name="type" id="type" v-model="type" placeholder="Bool">
-              <option value="bool">Bool</option>
-              <option value="count">Count</option>
-              <option value="slide">Slider</option>
-            </select>
+            <div>
+              <select name="type" id="type" v-model="type" placeholder="Bool">
+                <option value="bool">Bool</option>
+                <option value="count">Count</option>
+                <option value="slide">Slider</option>
+              </select>
+              <label class="form-check-label" for="type" style = "margin-left:5px">Type</label>
+            </div>
+            <div style="margin-top: 10px;" v-if="type == `count`">
+              <input
+                type="number"
+                id="count"
+                
+                min="0"
+                max="100"
+                placeholder="0"
+                v-model="target"
+              /><label class="form-check-label" for="count" style = "margin-left:5px">Target</label>
+            </div>
+            <div style="margin-top: 10px;" v-if="type == `slide`">
+              <input
+        type="range"
+        class="form-control-range"
+        id="slide"
+        min="0"
+        max="100"
+        v-model="target"
+      />
+              <label class="form-check-label" for="count" style = "margin-left:5px">Target</label>
+            </div>
           </div>
           <div class="col">
             <div class="col-sm-10">
@@ -60,6 +85,7 @@
             @click="addHabit"
             style="width: 200px"
           />
+          
         </div>
       </div>
     </form>
@@ -67,13 +93,16 @@
 </template>
 
 <script>
-import useHabits from "../modules/habits";
 import axios from "axios";
 
-import useFirebaseAuth from "../modules/firebaseauth"
+import useFirebaseAuth from "../modules/firebaseauth";
+import userStuff from "../modules/user";
+import { v4 as uuidv4 } from "uuid";
 
-var {authCheck, auth, user, email} = useFirebaseAuth();
-var { habits, error, load, reload, addToHabits } = useHabits();
+import moment from "moment";
+
+var { authCheck, auth, user, email, logout } = useFirebaseAuth();
+var { addNewHabit } = userStuff();
 
 export default {
   name: "AddHabit",
@@ -82,34 +111,39 @@ export default {
       title: "",
       type: "bool",
       modifier: "Pos",
+      target: 1,
+      currDate: moment().format("dddd, MMM Do"),
     };
   },
-  async setup() {
-    // await load();
-
-    return { habits, error };
+  setup() {
+    return {};
   },
   methods: {
     updateModifier(key) {
       this.modifier = key;
       console.log(this.modifier);
     },
+    async logout() {
+      await logout();
+    },
+    tempCheck(){
+console.log(this.target)
+    },
     async addHabit(e) {
-            const { logout , auth} = useFirebaseAuth();
-            await logout();
+      
+      e.preventDefault();
+      console.log(this.type);
+      const newHabit = {
+        id: uuidv4(),
+        title: this.title,
+        type: this.type + this.modifier,
+        status: 0,
+        target: this.target,
+        notes: "some placeholder text",
+      };
+      addNewHabit(newHabit);
 
-      // e.preventDefault();
-      // console.log(this.type);
-      // const newHabit = {
-      //   id: "649fd00c-3fd0-439e-b661-59c3667246b2",
-      //   title: this.title,
-      //   type: this.type + this.modifier,
-      //   status: 1,
-      //   notes: "some placeholder text",
-      // };
-      // addToHabits(newHabit);
-
-      // this.title = "";
+      this.title = "";
     },
   },
 };
@@ -122,6 +156,8 @@ form {
 
 .col {
   margin: 10px;
+  align-content: flex-start;
   align-items: flex-start;
+  align-self: flex-start;
 }
 </style>

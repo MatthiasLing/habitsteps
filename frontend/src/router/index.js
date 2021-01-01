@@ -3,10 +3,11 @@ import { createWebHistory, createRouter } from 'vue-router';
 import Home from '../components/Home';
 import Signup from '../components/login/signup';
 import Login from '../components/login/login';
-
-import TestApi from '../components/test';
+import About from '../components/About';
+import Account from '../components/Account';
 
 import useFirebaseAuth from '../modules/firebaseauth';
+
 const auth = useFirebaseAuth();
 
 const history = createWebHistory(process.env.BASE_URL);
@@ -27,10 +28,16 @@ const routes = [
         component: Login
     },
     {
-        path: '/test',
-        name: 'TestApi',
-        component: TestApi
+        path: '/about',
+        name: 'About',
+        component: About
+    },
+    {
+        path: '/account',
+        name: 'Account',
+        component: Account
     }
+
 ]
 
 const router = createRouter({
@@ -42,7 +49,7 @@ router.beforeEach((to, from, next) => {
     // console.log(to.fullPath, from.fullPath)
     if (to.name!=='Signup' && to.name!=='Login' && !auth.user.value){
         console.log("route 1: must sign in")
-        next({ name: 'Signup' })
+        next({ name: 'Login' })
     }
     else {
         console.log("route 2: other")

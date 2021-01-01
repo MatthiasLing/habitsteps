@@ -42,7 +42,6 @@ export default {
 
   setup() {
     
-    
     var { doLogout, user, authCheck } = useFirebaseAuth();
     const { router } = useRouter();
 
@@ -67,11 +66,20 @@ export default {
 </script>
 
 <style>
+.row{
+  /* align-self: start; */
+  /* align-content: center; */
+  /* align-items: center; */
+
+}
 #home {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  /* text-align: center; */
   color: #2c3e50;
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
 }
 </style>

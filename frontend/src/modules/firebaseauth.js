@@ -4,7 +4,7 @@ import firebase from 'firebase'
 import router from '../router/index'
 import userStuff from './user'
 
-const {loadUser, habits} = userStuff();
+const {loadUser, initializeUser,habits} = userStuff();
 
 // firebase init - add your own config here
 const firebaseConfig = {
@@ -64,26 +64,29 @@ export default function authCheck() {
     }
 
     const signup = (email, password) => {
-        console.log("signup initiated")
-        if (!email || !password) {
-            console.log("null signup")
-            return null
-        }
-        return firebase
+
+        return new Promise((resolve, reject) => {
+            firebase
             .auth()
             .createUserWithEmailAndPassword(email, password)
             .then((user) => {
+                console.log(email,password + "the second time")
                 auth.user = user;
                 auth.email = user.email;
-                console.log("signed up " + auth.email)
+                console.log("signed up " + email)
                 auth.error = null;
-                console.log("successful signup");
-                return user;
+                initializeUser(email).then(()=>{
+                    loadUser(auth.email).then(()=>{
+                        auth.error = null;
+                        resolve(true);
+                    })
+                })
             }, error => {
                 console.log("signup error")
                 auth.error = error
                 throw error
             })
+        });
     }
 
     // Run @ start

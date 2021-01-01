@@ -29,5 +29,5 @@ public class HabitController {
     }
 
     @PutMapping
-    public void updateHabit(@RequestBody UUID id, Habit habit){this.habitService.updateHabit(id, habit);}
+    public void updateHabit(@RequestBody String id, Habit habit){this.habitService.updateHabit(id, habit);}
 }

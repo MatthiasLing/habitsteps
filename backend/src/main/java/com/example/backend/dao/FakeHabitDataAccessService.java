@@ -13,16 +13,18 @@ public class FakeHabitDataAccessService implements HabitDao{
 
     private static List<Habit> DB = new ArrayList<Habit>(
             Arrays.asList(
-                    new Habit(UUID.randomUUID(), "Make The Bed", "boolPos", 0, "boolean habit"),
-                    new Habit(UUID.randomUUID(), "Drink Water", "countPos", 2, "positive counter"),
-                    new Habit(UUID.randomUUID(), "Less Distraction", "slideNeg", 56, "this is a slide")
+//                    new Habit(UUID.randomUUID(), "Make The Bed", "boolPos", 0, "boolean habit"),
+//                    new Habit(UUID.randomUUID(), "Drink Water", "countPos", 2, "positive counter"),
+//                    new Habit(UUID.randomUUID(), "Less Distraction", "slideNeg", 56, "this is a slide")
             )
 
     );
 
     @Override
-    public int insertHabit(UUID id, Habit habit){
-        DB.add(new Habit(id, habit.getTitle(), habit.getType(), habit.getStatus(), habit.getNotes()));
+    public int insertHabit(String id, Habit habit){
+//        DB.add(new Habit(id, habit.getTitle(), habit.getType(), habit.getStatus(),
+////                habit.getTarget(),
+//                habit.getNotes()));
         return 1;
     }
 
@@ -32,7 +34,7 @@ public class FakeHabitDataAccessService implements HabitDao{
     }
 
     @Override
-    public int updateHabit(UUID id, Habit habit) {
+    public int updateHabit(String id, Habit habit) {
         System.out.println(id + " " + habit.getId() +"  " + habit.getTitle());
         for (int index=0;index < DB.size(); index ++){
             System.out.println(DB.get(index).getId() + " " + id);

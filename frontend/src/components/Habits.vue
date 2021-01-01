@@ -1,7 +1,10 @@
 <template>
+<div>
+      <h1 style="margin-top:20px">Today's Habits</h1>
+
   <div class="habitList">
     <div
-          v-if = "!error && habits != null"
+          v-if = "habits && habits.length > 0"
 >
  <AsyncHabit
       v-for="habit in tempHabits"
@@ -9,9 +12,10 @@
       :habit="habit"
     />
     </div>
-        <div v-else>No habits on record - try adding one!</div>
+    <div v-else>No habits on record - try adding one!</div>
 
     
+    </div>
     </div>
 </template>
 
@@ -60,8 +64,8 @@ export default {
 .habitList{
   padding: 20px;
   height: 500px;
-  width: 800px;
-  overflow: scroll;
+  width: 700px;
+  overflow-y: scroll;
   margin: 10px;
 }
 </style>

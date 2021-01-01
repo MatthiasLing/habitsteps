@@ -11,7 +11,8 @@ export default function useHabits() {
 
   var reload = async () =>{
     const response = await fetch(
-      "http://localhost:8080/api/habits"
+      "/api/habits"
+      // "http://localhost:8080/api/habits"
     );
     state.habits = await response.json()
     console.log("reloaded")
@@ -20,7 +21,7 @@ export default function useHabits() {
   function addToHabits(newHabit){
     console.log("Adding a new habit")
     axios
-    .post("http://localhost:8080/api/addHabit", 
+    .post("/api/addHabit", 
       newHabit
       )
     .then((res) => 
@@ -37,7 +38,7 @@ export default function useHabits() {
   function updateHabit(habit){
     console.log("updating " + `${habit.title}`)
     axios
-    .put("http://localhost:8080/api/updateHabit", 
+    .put("/api/updateHabit", 
       habit
       )
     .then((res) => 
@@ -56,7 +57,7 @@ export default function useHabits() {
       console.log("state not loaded")
       try {
         const response = await fetch(
-          "http://localhost:8080/api/habits"
+          "/api/habits"
         );
         state.habits = await response.json()
       } catch (e) {

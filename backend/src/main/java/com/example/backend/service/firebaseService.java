@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.beans.IntrospectionException;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
@@ -43,6 +44,8 @@ public class firebaseService {
 
             LocalDate currDate = new Date(System.currentTimeMillis()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             ArrayList<Day> updatedDays = new ArrayList<Day>();
+            ZoneId defaultZoneId = ZoneId.systemDefault();
+
 
             for (Day day : user.getDays()){
                 LocalDate tempDate = day.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -59,14 +62,26 @@ public class firebaseService {
                         updatedDays.add(day);
                     }
             }
-
             if (needNew == 1){
-                ZoneId defaultZoneId = ZoneId.systemDefault();
                 Day latest = new Day(Date.from(currDate.atStartOfDay(defaultZoneId).toInstant()),
                         user.getHabits(),user.getHabits().size());
                 updatedDays.add(latest);
             }
             user.setDays(updatedDays);
+
+            long between = DAYS.between(user.getLastLoggedIn().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), currDate);
+
+            if ( between > 1){
+                System.out.println("LOST YOUR STREAK");
+                user.setStreak(0);
+            }else if (between == 1){
+                System.out.println("ADDING TO STREAK");
+                user.setStreak(user.getStreak() + 1);
+            }else{
+                System.out.println("SAME DAY LOGIN");
+            }
+
+            user.setLastLoggedIn(Date.from(currDate.atStartOfDay(defaultZoneId).toInstant()));
 
             ApiFuture<WriteResult> collectionsApiFuture = db.collection("users").document(email).set(user);
 
@@ -78,6 +93,7 @@ public class firebaseService {
     }
     public String saveUser(User user) throws ExecutionException, InterruptedException {
         Firestore db = FirestoreClient.getFirestore();
+        user.setLastLoggedIn(new Date(System.currentTimeMillis()));
 //        Potential issue, couldn't read what goes here
         ApiFuture<WriteResult> collectionsApiFuture = db.collection("users").document(user.getName()).set(user);
         return collectionsApiFuture.get().getUpdateTime().toString();
@@ -169,24 +185,5 @@ public class firebaseService {
         System.out.println("No user found");
         return ;
     }
-
-
-//    public void updateDay(String email, Date day) throws ExecutionException, InterruptedException {
-//        Firestore db = FirestoreClient.getFirestore();
-//        CollectionReference users = db.collection("users");
-//
-//        Query query = users.whereEqualTo("email", email);
-//// retrieve  query results asynchronously using query.get()
-//        ApiFuture<QuerySnapshot> querySnapshot = query.get();
-//
-//        for (Docume   tSnapshot document : querySnapshot.get().getDocuments()) {
-//            System.out.println(document.get("email") + " found!");
-////            return document.toObject(User.class);
-//            return;
-//        }
-//        System.out.println("No user found");
-//        return;
-//
-//    }
 
 }

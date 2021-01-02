@@ -4,7 +4,7 @@ import Home from '../components/Home';
 import Signup from '../components/login/signup';
 import Login from '../components/login/login';
 import About from '../components/About';
-import Account from '../components/Account';
+import Account from '../components/account/Account';
 
 import useFirebaseAuth from '../modules/firebaseauth';
 

@@ -6,6 +6,8 @@ var userState = reactive({
   user: null,
   email: null,
   day: null,
+  streak: 0,
+  lastLoggedIn: null,
   score: 0,
   habits: null,
   loaded: false,
@@ -23,7 +25,6 @@ export default function loadUser() {
       }).catch((err)=>{
         console.log(err)
       })
-
   }
 
   const updateHabit = async(habit) => {
@@ -40,11 +41,13 @@ export default function loadUser() {
     console.log("init user called")
     console.log(email)
 
+    // latest update with streaks
     await axios.post("/api/addUser/", {
       name: email,
       email: email,
       habits: [],
-      days: []
+      days: [],
+      streak: 0,
     }).then(() => {
       console.log("new user created")
     })
@@ -66,23 +69,23 @@ export default function loadUser() {
           "/api/user/" + email
         );
         userState.user = await response.json()
+
         for (var i=0;i<userState.user.days.length;i++){
           var now = Date.now();
           
           if (sameDay(userState.user.days[i].date)){
             userState.habits = userState.user.days[i].habits
-            console.log("Date found and loaded")
             break;
           }
         }
         if (userState.habits == null){
-          console.log("habits is null")
           userState.habits = []
-        }else{
-          console.log(userState.habits)
         }
 
-        // userState.habits = userState.user.habits;
+
+        // something here for the streak
+        userState.streak = userState.user.streak;
+
         return 1;
       } catch (e) {
         console.log(e)
@@ -99,6 +102,6 @@ export default function loadUser() {
     loadUser,
     initializeUser,
     addNewHabit,
-    updateHabit
+    updateHabit,
   };
 }

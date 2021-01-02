@@ -32,17 +32,17 @@
         
       </div>
   </div>
+  <div>
+      <!-- <img src = "../assets/line.png" style = "height:300px"/> -->
+  </div>
   <div class="columnR">
-    <!-- <img src="../assets/dancing.png" style="width: 300px" /> -->
-    <img src="../assets/dancing.png" style="width: 300px" />
+    <img src="../assets/meditating.png" style="width: 300px" />
+    <img src="../assets/dancing.png" style="width: 300px;" />
     <div class="textColR">
     <span class="habitSteps2">HabitSteps</span> came from the
           belief that through cultivating good habits, we can become more
           productive, engaged, and successful people - one step at a time.
           </div>
-
-              
-
   </div>
 
 </div>
@@ -69,8 +69,7 @@ export default {
 .columnL {
   float: left;
   width: 50%;
-  padding: 10px;
-  padding-left: 30px;
+  padding-left: 60px;
   height: 300px; /* Should be removed. Only for demonstration */
 }
 .columnR {
@@ -78,7 +77,6 @@ export default {
   width: 45%;
   /* padding: 10px; */
   /* padding-left: 10px; */
-  height: 300px; /* Should be removed. Only for demonstration */
 }
 
 /* Clear floats after the columns */
@@ -93,8 +91,8 @@ export default {
   padding: 20px;
 }
 .row {
-  display: flex;
-  justify-content: space-between;
+  /* display: flex; */
+  /* justify-content: space-between; */
 }
 .name {
   font-weight: bold;

@@ -21,21 +21,21 @@
 
 <script>
 import { defineAsyncComponent } from "vue";
-import Loading from "./Loading.vue";
-import userStuff from "../modules/user";
-import useFirebaseAuth from "../modules/firebaseauth"
+import Loading from "../Loading.vue";
+import userStuff from "../../modules/user";
+import useFirebaseAuth from "../../modules/firebaseauth"
     var { loadUser, habits, streak, error} = userStuff();
 
 
 const AsyncHabit = defineAsyncComponent({
-  loader: () => import("./Habit" /* webpackChunkName: "habit" */),
+  loader: () => import("./AccountHabit" /* webpackChunkName: "habit" */),
   loadingComponent: <div>Loading Habits</div>,
   delay: 100,
   suspensible: true,
 });
 
 export default {
-  name: "Habits",
+  name: "AccountHabits",
   data() {
     return {
       tempHabits : habits
@@ -63,7 +63,7 @@ export default {
 <style>
 .habitList{
   padding: 20px;
-  height: 500px;
+  height: 400px;
   width: 700px;
   overflow-y: scroll;
   margin: 10px;

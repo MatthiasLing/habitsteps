@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@mdi/js": "^5.8.55",
+    "apexcharts": "^3.23.1",
     "axios": "^0.21.0",
     "bootstrap": "^4.5.3",
     "core-js": "^3.6.5",
@@ -19,7 +20,9 @@
     "popper.js": "^1.16.1",
     "uuid": "^8.3.2",
     "vue": "^3.0.0",
+    "vue-apexcharts": "^1.6.0",
     "vue-router": "^4.0.1",
+    "vue3-apexcharts": "^1.1.1",
     "vuedraggable": "^4.0.1"
   },
   "devDependencies": {

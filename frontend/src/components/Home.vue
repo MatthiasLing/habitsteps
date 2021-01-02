@@ -40,7 +40,7 @@ export default {
     Loading,
   },
 
-  setup() {
+  setup: () => {
     
     var { doLogout, user, authCheck } = useFirebaseAuth();
     const { router } = useRouter();
@@ -51,14 +51,10 @@ export default {
       error.value = e;
     });
 
-    const dologout = async () => {
-      await doLogout();
-      router.replace({ path: "/Login" });
-    };
+    // await loadUser();
 
     return {
       error,
-      dologout,
       router: useRouter(),
     };
   },
@@ -66,17 +62,10 @@ export default {
 </script>
 
 <style>
-.row{
-  /* align-self: start; */
-  /* align-content: center; */
-  /* align-items: center; */
-
-}
 #home {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* text-align: center; */
   color: #2c3e50;
   display: flex;
   align-items: center;

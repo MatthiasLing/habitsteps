@@ -7,16 +7,20 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import router from './router/index'
 import useFirebaseAuth from "./modules/firebaseauth"
 import userStuff from "./modules/user"
+import VueApexCharts from "vue3-apexcharts";
 
 var {authCheck, auth, user, email} = useFirebaseAuth();
-var {loadUser, day, habits, score } = userStuff();
+var {loadUser, day, habits, streak } = userStuff();
 
 const app = createApp(App)
 .use(router)
 
 authCheck().then(()=>{
+    app.use(VueApexCharts);
+
     if (email){
         loadUser(email.value).then(()=>{
+            console.log(streak.value, "USER STREAK")
         app.use(router);
         })
     }else{

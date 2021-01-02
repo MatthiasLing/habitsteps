@@ -43,7 +43,6 @@ public class Day {
     }
 
     public int getScore(){
-        System.out.println("getting the score: " + habits.size());
         return habits.size();
     }
 

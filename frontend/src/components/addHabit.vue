@@ -1,6 +1,5 @@
 <template>
   <div style="margin: 20px; width: 400px">
-    <h1>{{ currDate }}</h1>
     <Progress/>
     <h2 style="margin-top: 20px;">New Habit</h2>
     <form>
@@ -117,8 +116,6 @@ import useFirebaseAuth from "../modules/firebaseauth";
 import userStuff from "../modules/user";
 import { v4 as uuidv4 } from "uuid";
 
-import moment from "moment";
-
 import Progress from "./Progress";
 var { authCheck, auth, user, email, logout } = useFirebaseAuth();
 var { addNewHabit } = userStuff();
@@ -135,7 +132,6 @@ export default {
       type: "bool",
       modifier: "Pos",
       target: 1,
-      currDate: moment().format("dddd, MMM Do"),
     };
   },
   setup() {

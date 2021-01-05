@@ -1,6 +1,6 @@
 <template>
 <div>
-      <h1 style="margin-top:20px">Today's Habits</h1>
+      <!-- <h1 style="margin-top:20px">Your Habits</h1> -->
 
   <div class="habitList">
     <div

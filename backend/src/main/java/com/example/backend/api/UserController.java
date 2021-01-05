@@ -28,7 +28,6 @@ public class UserController {
     @Autowired
     firebaseService firebaseService;
 
-//    @CrossOrigin(origins = "http://localhost:8080")
     @PostMapping(path = "/api/addUser")
     public String addUser(@RequestBody User user) throws ExecutionException, InterruptedException {
         System.out.println("Adding " + user.getName());
@@ -46,6 +45,12 @@ public class UserController {
         System.out.println("Received put request");
         System.out.println("adding "+ habit.getTitle());
         firebaseService.addHabit(email, habit);
+    }
+
+    @PostMapping (path = "/api/removeHabit/{emailString}")
+    public @ResponseBody void removeHabit(@PathVariable(value="emailString") String email, @RequestBody Habit habit) throws ExecutionException, InterruptedException {
+        System.out.println("Removing "+ habit.getTitle());
+        firebaseService.removeHabit(email, habit);
     }
 
     @PostMapping (path = "/api/updateHabit/{emailString}")

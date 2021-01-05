@@ -52,6 +52,7 @@ export default {
 
 .header {
     display: flex;
+    /* position: fixed; */
   justify-content: space-between;
   /* margin: 0 auto; */
   background: #012049;
@@ -60,5 +61,6 @@ export default {
   padding: 10pt;
   padding-left: 30px;
   padding-right: 20px;
+  width: 100%;
 }
 </style>

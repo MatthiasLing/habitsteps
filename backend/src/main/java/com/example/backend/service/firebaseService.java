@@ -141,9 +141,59 @@ public class firebaseService {
         System.out.println("No user found");
     }
 
-//    Still not working
+    public void removeHabit(String email, Habit habit) throws ExecutionException, InterruptedException{
+        Firestore db = FirestoreClient.getFirestore();
+        CollectionReference users = db.collection("users");
+
+        Query query = users.whereEqualTo("email", email);
+
+        ApiFuture<QuerySnapshot> querySnapshot = query.get();
+
+        ArrayList<Habit> updatedHabits = new ArrayList<Habit>();
+
+
+        for (DocumentSnapshot document : querySnapshot.get().getDocuments()) {
+            User user = document.toObject(User.class);
+
+            for (Habit presentHabit : user.getHabits()){
+               if (!presentHabit.getId().equals(habit.getId())){
+                updatedHabits.add(presentHabit);
+               }
+            }
+
+            user.setHabits(updatedHabits);
+            LocalDate currDate = new Date(System.currentTimeMillis()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+
+            for (Day day : user.getDays()){
+                LocalDate tempDate = day.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+                if (tempDate.getYear() == currDate.getYear()
+                        && tempDate.getDayOfMonth() == currDate.getDayOfMonth()
+                        && tempDate.getMonth() == currDate.getMonth()) {
+                    for (Habit currHabit : day.getHabits()){
+                        if (currHabit.getId().equals (habit.getId())){
+//                            replace this one
+                            ArrayList<Habit> newHabits = day.getHabits();
+                            newHabits.remove(newHabits.indexOf(currHabit));
+                            day.setHabits(newHabits);
+                            ApiFuture<WriteResult> collectionsApiFuture = db.collection("users").document(email).set(user);
+                            System.out.println("Removing " + habit.getTitle());
+                            return;
+                        }
+                    }
+                }
+
+            }
+
+            
+            return;
+        }
+
+    }
+
     public void updateHabit(String email, Habit habit) throws ExecutionException, InterruptedException {
-                Firestore db = FirestoreClient.getFirestore();
+        Firestore db = FirestoreClient.getFirestore();
 //        Potential issue, couldn't read what goes here
         CollectionReference users = db.collection("users");
 // Create a query against the collection.
@@ -156,7 +206,6 @@ public class firebaseService {
             User user = document.toObject(User.class);
 
             LocalDate currDate = new Date(System.currentTimeMillis()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            ArrayList<Day> updatedDays = new ArrayList<Day>();
 
             for (Day day : user.getDays()){
                 LocalDate tempDate = day.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();

@@ -9,6 +9,7 @@ import useFirebaseAuth from "./modules/firebaseauth"
 import userStuff from "./modules/user"
 import VueApexCharts from "vue3-apexcharts";
 
+
 var {authCheck, auth, user, email} = useFirebaseAuth();
 var {loadUser, day, habits, streak } = userStuff();
 

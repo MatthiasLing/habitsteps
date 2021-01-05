@@ -6,6 +6,7 @@
         <div class="row">
           <Habits  />
           <AddHabit />
+          <Streak/>
         </div>
       </template>
       <template #fallback>
@@ -29,6 +30,8 @@ import userStuff from "../modules/user";
 import { ref, onErrorCaptured, defineAsyncComponent } from "vue";
 import { useRouter } from "vue-router";
 import Loading from "./Loading.vue";
+import Streak from "./Streak"
+
 var { loadUser, habits } = userStuff();
 
 export default {
@@ -38,6 +41,7 @@ export default {
     Secondary,
     AddHabit,
     Loading,
+    Streak
   },
 
   setup: () => {

@@ -6,6 +6,7 @@ var userState = reactive({
   user: null,
   email: null,
   day: null,
+  days : [],
   streak: 0,
   lastLoggedIn: null,
   score: 0,
@@ -25,6 +26,18 @@ export default function loadUser() {
       }).catch((err)=>{
         console.log(err)
       })
+  }
+
+  const removeHabit = async(habit)=>{
+    axios.post("/api/removeHabit"+userState.user.email),
+    habit.then(()=>{
+      var index = userState.habits.indexOf(habit);
+
+      if (index > -1){
+        userState.habits.splice(index, 1);
+      }
+      console.log("Habit removed")
+    })
   }
 
   const updateHabit = async(habit) => {
@@ -85,7 +98,7 @@ export default function loadUser() {
 
         // something here for the streak
         userState.streak = userState.user.streak;
-
+        userState.days = userState.user.days;
         return 1;
       } catch (e) {
         console.log(e)
@@ -103,5 +116,6 @@ export default function loadUser() {
     initializeUser,
     addNewHabit,
     updateHabit,
+    removeHabit
   };
 }

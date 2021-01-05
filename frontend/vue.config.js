@@ -1,4 +1,9 @@
 module.exports = {
+  // added after
+  outputDir: 'target/dist',
+  assetsDir: 'static',
+
+
     devServer: {
       proxy: {
         '^/api': {

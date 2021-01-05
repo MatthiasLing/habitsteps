@@ -25,9 +25,9 @@
         v-model="tempStatus"
         @change="update(habit)"
       />
-      <h3>{{ habit.title }}</h3>
-      <h4>{{ tempStatus }}</h4>
-      <p>{{ habit.id }}</p>
+      <h3 class ="label">{{ habit.title }}</h3>
+      <h4>{{ tempStatus }}/{{habit.target}}</h4>
+      <!-- <p>{{ habit.id }}</p> -->
     </button>
   </div>
 </template>
@@ -97,6 +97,15 @@ export default {
 <style>
 .habit-btn {
   padding: 5px;
+  text-align: center;
+}
+
+.label {
+  padding: 5px;
+  color:#FFDE59;
+white-space: nowrap;
+text-overflow: ellipsis;
+  overflow: hidden; 
   text-align: center;
 }
 

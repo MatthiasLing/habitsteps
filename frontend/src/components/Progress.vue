@@ -20,7 +20,7 @@
 import { ref, onErrorCaptured } from "vue";
 import userStuff from "../modules/user";
 import useFirebaseAuth from "../modules/firebaseauth";
-var { loadUser, streak, lastLoggedIn } = userStuff();
+var { loadUser, streak, lastLoggedIn, habits } = userStuff();
 var { doLogout, user, authCheck } = useFirebaseAuth();
 
 export default {
@@ -35,7 +35,6 @@ export default {
 
   setup: () => {
     return {
-    //   streak,
     };
   },
 };

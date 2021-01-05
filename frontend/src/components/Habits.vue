@@ -1,6 +1,6 @@
 <template>
 <div>
-      <h1 style="margin-top:20px">Today's Habits</h1>
+      <h1 style="margin-top:20px">{{currDate}}</h1>
 
   <div class="habitList">
     <div
@@ -24,6 +24,8 @@ import { defineAsyncComponent } from "vue";
 import Loading from "./Loading.vue";
 import userStuff from "../modules/user";
 import useFirebaseAuth from "../modules/firebaseauth"
+import moment from "moment";
+
     var { loadUser, habits, streak, error} = userStuff();
 
 
@@ -38,7 +40,9 @@ export default {
   name: "Habits",
   data() {
     return {
-      tempHabits : habits
+      tempHabits : habits,
+            currDate: moment().format("dddd")+"'s Habits",
+
     };
   },
 

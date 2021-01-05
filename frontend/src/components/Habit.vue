@@ -52,7 +52,6 @@ export default {
   },
 
   async setup() {
-    console.log("I AM HJERE")
   },
   
 

@@ -29,8 +29,8 @@ export default function loadUser() {
   }
 
   const removeHabit = async(habit)=>{
-    axios.post("/api/removeHabit"+userState.user.email),
-    habit.then(()=>{
+    console.log("removeHabit called")
+    axios.post("/api/removeHabit/"+userState.user.email, habit).then(()=>{
       var index = userState.habits.indexOf(habit);
 
       if (index > -1){

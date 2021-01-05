@@ -1,7 +1,21 @@
 <script>
+import userStuff from "../../modules/user";
+
+var { removeHabit, days } = userStuff();
 export default {
   name: "modal",
+  props: {
+    habit: Object,
+  },
   methods: {
+    remove(){
+        console.log("removing")
+        console.log(this.habit
+        )
+        removeHabit(this.habit)
+        this.$emit("close")
+    },
+
     close() {
       console.log("closing");
       this.$emit("close");
@@ -10,98 +24,85 @@ export default {
 };
 </script>
 <template>
-    <div class="modal-backdrop">
-      <!-- <div
-        class="modal"
-      >
-          <h1>Are you sure you want to delete?</h1>
+  <div class="modal-backdrop">
+    <div class="panel">
+      <div style="margin: 20px; padding: 10px;">
+        <h1>Delete this habit?</h1>
+        <h2
+        style = "margin-bottom:20px;"
+        >{{ habit.title }}</h2>
+        <div>
+          <button
+          type="button"
+          class="btn-green"
+          @click="close"
+          aria-label="Cancel"
+        >
+          Cancel
+        </button>
 
-      <div>
-        <footer class="modal-footer">
-          <slot name="footer">
-            <button
-              type="button"
-              class="btn-green"
-              @click="close"
-              aria-label="Cancel"
-            >
-              Cancel
-            </button>
-          </slot>
-        </footer>
+          <button
+          type="button"
+          class="btn-delete"
+          @click="remove"
+          aria-label="Cancel"
+        >
+          Remove
+        </button> 
+        </div>
       </div>
-      </div> -->
-      <div class="panel">HELP</div>
     </div>
+  </div>
 </template>
 <style>
+.p {
+  /* margin: auto; */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.row {
+
+}
 .modal-backdrop {
   background-color: rgba(0, 0, 0, 0.7);
-display: flex;
+  display: flex;
   justify-content: center;
-    position: fixed;
-  bottom: 50%;
-  right: 50%;
+ 
 }
-.panel{
-  /* background: #FFFFFF; */
-  /* position: fixed;
-  bottom: 50%;
-  right: 50%; */
+.panel {
+
   margin-top: 10%;
   text-align: center;
-  background-color: lightblue;
+  background-color: white;
   width: 500px;
-  height: 300px;
+  height: 250px;
 
   display: flex;
-  /* flex-direction: column; */
-
-}
-.modal {
-  /* background: #FFFFFF; */
-  position: fixed;
-  bottom: 50%;
-  right: 50%;
-  text-align: center;
-  background-color: lightblue;
-  width: 500px;
-  height: 300px;
-
-  display: flex;
-  /* flex-direction: column; */
+  flex-direction: column;
 }
 
-.modal-header,
-.modal-footer {
-  padding: 15px;
-  display: flex;
-}
-
-.modal-footer {
-  border-top: 1px solid #eeeeee;
-  justify-content: flex-end;
-}
-
-.modal-body {
-  position: relative;
-  padding: 20px 10px;
-}
-
-.btn-close {
-  border: none;
-  font-size: 20px;
-  padding: 20px;
-  cursor: pointer;
-  font-weight: bold;
-  color: #4aae9b;
-  background: transparent;
+.btn-delete {
+    margin: 5px;
+    width: 100px;
+    height: 40px;
+  color: white;
+  background: red;
+    border: 1px solid red;
+  align-self: center;
+  border-radius: 2px;
+  align-self: center;
 }
 
 .btn-green {
+        margin: 5px;
+
+    width: 100px;
+    height: 40px;
   color: white;
   background: #4aae9b;
   border: 1px solid #4aae9b;
   border-radius: 2px;
+  align-self: center;
 }
 </style>

@@ -1,6 +1,7 @@
 <template>
   <div class="habit-btn">
         <Modal
+        :habit="habit"
       v-show="isModalVisible"
       @close="closeModal"
     />
@@ -62,7 +63,7 @@ export default {
 
 
   async setup() {
-
+    // console.log(this.habit)
   },
   
   

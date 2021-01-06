@@ -1,11 +1,12 @@
 <template>
   <header class="header">
-    <img class= "logo"
-    src="../assets/habitsteps.png" @click="home"/>
+    <img class="logo" src="../assets/habitsteps.png" @click="home" />
 
-    <div class= "row">
-      <router-link class = "link" to="/about">About</router-link>
-      <button type="button" class="btn btn-outline-warning" @click="acct">Account</button>
+    <div class="row">
+      <router-link class="link" to="/about">About</router-link>
+      <button type="button" class="btn btn-outline-warning" @click="acct">
+        Account
+      </button>
     </div>
   </header>
 </template>
@@ -16,51 +17,47 @@ import router from "../router/index";
 export default {
   name: "Header",
   methods: {
-  home : function (){
+    home: function () {
       router.replace({ path: "/" });
-  },
+    },
 
-  acct : function (){
-    router.replace({name: "Account"})
-  }
-}
+    acct: function () {
+      router.replace({ name: "Account" });
+    },
+  },
 };
 </script>
 
 <style scoped>
-
-.logo{
+.logo {
   cursor: pointer;
   height: 70px;
-  padding-top: 10px
+  padding-top: 10px;
 }
 
-.row{
+.row {
   width: 250px;
   display: flex;
-        justify-content: space-between;
-    padding-right: 30px;
-    margin: 10px;
+  justify-content: space-between;
+  padding-right: 30px;
+  margin: 10px;
 }
 
-.link{
-  color: #CB6CE6;
+.link {
+  color: #cb6ce6;
   font-size: 20px;
-    padding-top: 10px;
-    font-size: 25px;
+  padding-top: 10px;
+  font-size: 25px;
 }
 
 .header {
-    display: flex;
-    /* position: fixed; */
+  display: flex;
   justify-content: space-between;
-  /* margin: 0 auto; */
   background: #012049;
   color: white;
   text-align: center;
   padding: 10pt;
   padding-left: 30px;
   padding-right: 20px;
-  width: 100%;
 }
 </style>

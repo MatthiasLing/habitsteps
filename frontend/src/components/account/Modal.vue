@@ -29,7 +29,8 @@ export default {
       <div style="margin: 20px; padding: 10px;">
         <h1>Delete this habit?</h1>
         <h2
-        style = "margin-bottom:20px;"
+        style = "margin-bottom:20px;text-overflow: ellipsis;
+  overflow: hidden; color:#8c52ff"
         >{{ habit.title }}</h2>
         <div>
           <button
@@ -55,15 +56,7 @@ export default {
   </div>
 </template>
 <style>
-.p {
-  /* margin: auto; */
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-.row {
 
-}
 .modal-backdrop {
   background-color: rgba(0, 0, 0, 0.7);
   display: flex;

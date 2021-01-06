@@ -154,14 +154,14 @@ export default {
 <style>
 .imageLocked {
   margin: 8px;
-  height: 80px;
-  width: 80px;
+  height: 75px;
+  width: 75px;
   opacity: 0.25;
 }
 .image {
   margin: 8px;
-  height: 80px;
-  width: 80px;
+  height:75px;
+  width: 75px;
 }
 .streaks {
   margin-top: 40px;
@@ -170,8 +170,8 @@ export default {
 .dot {
   margin: 8px;
 
-  height: 80px;
-  width: 80px;
+  height: 75px;
+  width: 75px;
   background-color: #FFDE59;
   border-radius: 50%;
   display: inline-block;

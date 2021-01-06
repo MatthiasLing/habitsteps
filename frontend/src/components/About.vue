@@ -5,12 +5,10 @@
   <div class="row">
   <div class="columnL">
     <div class="textCol">
-        <div>
           <span class="habitSteps">HabitSteps</span> started as a winter break project
           created by <span class="name">Matthias Ling</span>. It originates from
           a desire to track growth through daily habits, and hopefully will
           become a tool that many will come to use and love. 
-          <!-- <br /><br /> -->
           <br /><br />
 
           Self improvement shouldn't come with a price, and for that reason
@@ -28,16 +26,13 @@
           <a style="white-space: nowrap" href="https://github.com/MatthiasLing"
             >GitHub</a
           >!
-        </div>
         
       </div>
   </div>
-  <div>
-      <!-- <img src = "../assets/line.png" style = "height:300px"/> -->
-  </div>
+
   <div class="columnR">
-    <img src="../assets/meditating.png" style="width: 300px" />
-    <img src="../assets/dancing.png" style="width: 300px;" />
+    <img src="../assets/meditating.png" style="width: 300px;    " />
+    <img src="../assets/dancing.png" style="width: 300px;    float: left;" />
     <div class="textColR">
     <span class="habitSteps2">HabitSteps</span> came from the
           belief that through cultivating good habits, we can become more
@@ -52,10 +47,6 @@
 <script>
 export default {
   name: "About",
-
-  setup() {
-    return {};
-  },
 };
 </script>
 
@@ -66,33 +57,22 @@ export default {
 }
 
 /* Create three equal columns that floats next to each other */
-.columnL {
+.row .columnL {
   float: left;
   width: 50%;
   padding-left: 60px;
   height: 300px; /* Should be removed. Only for demonstration */
 }
-.columnR {
+.row .columnR {
   float: left;
   width: 45%;
   /* padding: 10px; */
   /* padding-left: 10px; */
 }
 
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
 /*  */
 .title {
   padding: 20px;
-}
-.row {
-  /* display: flex; */
-  /* justify-content: space-between; */
 }
 .name {
   font-weight: bold;

@@ -1,8 +1,10 @@
 <template>
   <div style="margin: 20px; width: 400px">
-    <Progress/>
-    <h2 style="margin-top: 20px;">New Habit</h2>
+    <Progress />
+
+    <h2 style="margin-top: 20px">New Habit</h2>
     <form>
+      <Tutorial v-show="isModalVisible" @close="closeModal" />
       <div class="form-col" style="margin: 10px; width: 400px">
         <div class="form-row">
           <div class="col">
@@ -11,15 +13,21 @@
               class="form-control form-control-lg"
               v-model="title"
               name="title"
-              placeholder="Habit Title"
+              placeholder='Habit Title (ex: "make the bed")'
             />
           </div>
         </div>
         <div class="form-row">
           <div class="col">
             <div>
-              <select name="type" id="type" v-model="type" placeholder="Bool" style = "height:30px">
-                <option value="bool">Bool</option>
+              <select
+                name="type"
+                id="type"
+                v-model="type"
+                placeholder="Bool"
+                style="height: 30px"
+              >
+                <option value="bool">Binary</option>
                 <option value="count">Count</option>
                 <option value="slide">Slider</option>
               </select>
@@ -30,10 +38,9 @@
                 >Type</label
               >
             </div>
-            
           </div>
           <div class="col" v-if="type != `bool`">
-            <div  v-if="type == `count`">
+            <div v-if="type == `count`">
               <input
                 type="number"
                 id="count"
@@ -65,44 +72,31 @@
               >
             </div>
           </div>
-          <!-- <div class="col">
-            <div class="col-sm-10">
-              <div class="form-check" @change="updateModifier(`Pos`)">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="gridRadios"
-                  id="gridRadios1"
-                  value="Pos"
-                  checked
-                />
-                <label class="form-check-label" for="gridRadios1">
-                  Positive
-                </label>
-              </div>
-              <div class="form-check" @change="updateModifier(`Neg`)">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="gridRadios"
-                  id="gridRadios2"
-                  value="Neg"
-                />
-                <label class="form-check-label" for="gridRadios2">
-                  Negative
-                </label>
-              </div>
-            </div>
-          </div> -->
         </div>
-        <div class="form-col" style = "margin-top: 10px">
-          <input
-            type="submit"
-            value="Add new habit"
-            class="btn btn-primary"
-            @click="addHabit"
-            style="width: 200px; height: 50px"
-          />
+        <div class="form-row" style="margin-top: 10px">
+          <div class="row" style="margin: auto">
+            <input
+              type="submit"
+              value="Add new habit"
+              class="btn btn-primary"
+              @click="addHabit"
+              style="width: 200px; height: 50px"
+            />
+            <div
+              @click="question"
+              style="
+                vertical-align: baseline;
+                padding: 5px;
+                margin-left: 10px;
+                cursor: pointer;
+                font-size: 30px;
+                color: #8c53ff;
+                font-weight: bold;
+              "
+            >
+              ?
+            </div>
+          </div>
         </div>
       </div>
     </form>
@@ -110,34 +104,40 @@
 </template>
 
 <script>
-import axios from "axios";
-
 import useFirebaseAuth from "../modules/firebaseauth";
 import userStuff from "../modules/user";
 import { v4 as uuidv4 } from "uuid";
-
+import Tutorial from "./Tutorial";
 import Progress from "./Progress";
 var { authCheck, auth, user, email, logout } = useFirebaseAuth();
 var { addNewHabit } = userStuff();
 
 export default {
   name: "AddHabit",
-  components:{
+  components: {
     Progress,
+    Tutorial,
   },
-  data()
-     {
+  data() {
     return {
       title: "",
       type: "bool",
       modifier: "Pos",
       target: 1,
+      isModalVisible: false,
     };
   },
   setup() {
     return {};
   },
   methods: {
+    closeModal() {
+      this.isModalVisible = false;
+    },
+    question() {
+      console.log("question time");
+      this.isModalVisible = true;
+    },
     updateModifier(key) {
       this.modifier = key;
       console.log(this.modifier);
@@ -149,11 +149,10 @@ export default {
       console.log(this.target);
     },
     async addHabit(e) {
-      if (!this.title){
+      if (!this.title || !this.title.trim()) {
         return;
       }
       e.preventDefault();
-      console.log(this.type);
       const newHabit = {
         id: uuidv4(),
         title: this.title,

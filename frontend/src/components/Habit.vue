@@ -12,6 +12,7 @@
         id="slide"
         min="0"
         max="100"
+        @change="update(habit)"
         v-model="tempStatus"
       />
       <input
@@ -61,8 +62,6 @@ export default {
     },
 
     update: function (habit) {
-      console.log(habit.type);
-
       if (habit.type == "boolPos" || habit.type == "boolNeg") {
         if (habit.status === 0) {
           habit.status = 1;

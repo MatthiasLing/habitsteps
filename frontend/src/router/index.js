@@ -48,11 +48,9 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
     // console.log(to.fullPath, from.fullPath)
     if (to.name!=='Signup' && to.name!=='Login' && !auth.user.value){
-        console.log("route 1: must sign in")
         next({ name: 'Login' })
     }
     else {
-        console.log("route 2: other")
         next()
     }
   })

@@ -18,41 +18,33 @@ var userState = reactive({
 export default function loadUser() {
 
   const addNewHabit = async (newHabit) => {
-    console.log(JSON.stringify(newHabit))
     axios.post("/api/addHabit/" + userState.user.email,
       newHabit).then(() => {
         userState.habits.push(newHabit)
-        console.log("should be done")
       }).catch((err)=>{
         console.log(err)
       })
   }
 
   const removeHabit = async(habit)=>{
-    console.log("removeHabit called")
     axios.post("/api/removeHabit/"+userState.user.email, habit).then(()=>{
       var index = userState.habits.indexOf(habit);
 
       if (index > -1){
         userState.habits.splice(index, 1);
       }
-      console.log("Habit removed")
     })
   }
 
   const updateHabit = async(habit) => {
-    console.log(JSON.stringify(habit))
     axios.post("/api/updateHabit/" + userState.user.email,
       habit).then(() => {
-        console.log("should be done")
       }).catch((err)=>{
         console.log(err)
       })
   }
 
   const initializeUser = async (email) => {
-    console.log("init user called")
-    console.log(email)
 
     // latest update with streaks
     await axios.post("/api/addUser/", {
@@ -75,7 +67,6 @@ export default function loadUser() {
 
 
   const loadUser = async (email) => {
-    console.log("loadUser called")
     if (!userState.loaded) {
       try {
         const response = await fetch(
@@ -95,8 +86,6 @@ export default function loadUser() {
           userState.habits = []
         }
 
-
-        // something here for the streak
         userState.streak = userState.user.streak;
         userState.days = userState.user.days;
         return 1;
@@ -106,7 +95,6 @@ export default function loadUser() {
         return 0;
       }
     } else {
-      console.log("state already loaded, not fetching")
       return 2;
     }
   };

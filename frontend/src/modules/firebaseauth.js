@@ -70,10 +70,8 @@ export default function authCheck() {
             .auth()
             .createUserWithEmailAndPassword(email, password)
             .then((user) => {
-                console.log(email,password + "the second time")
                 auth.user = user;
                 auth.email = user.email;
-                console.log("signed up " + email)
                 auth.error = null;
                 initializeUser(email).then(()=>{
                     loadUser(auth.email).then(()=>{

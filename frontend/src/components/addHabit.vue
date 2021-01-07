@@ -135,18 +135,13 @@ export default {
       this.isModalVisible = false;
     },
     question() {
-      console.log("question time");
       this.isModalVisible = true;
     },
     updateModifier(key) {
       this.modifier = key;
-      console.log(this.modifier);
     },
     async logout() {
       await logout();
-    },
-    tempCheck() {
-      console.log(this.target);
     },
     async addHabit(e) {
       if (!this.title || !this.title.trim()) {

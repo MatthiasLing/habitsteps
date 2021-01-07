@@ -9,15 +9,11 @@ export default {
   },
   methods: {
     remove(){
-        console.log("removing")
-        console.log(this.habit
-        )
         removeHabit(this.habit)
         this.$emit("close")
     },
 
     close() {
-      console.log("closing");
       this.$emit("close");
     },
   },

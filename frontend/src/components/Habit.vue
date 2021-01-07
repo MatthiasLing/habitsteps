@@ -57,10 +57,6 @@ export default {
   
 
   methods: {
-    toggleSlide: function (event) {
-      console.log(status);
-    },
-
     update: function (habit) {
       if (habit.type == "boolPos" || habit.type == "boolNeg") {
         if (habit.status === 0) {
@@ -75,18 +71,13 @@ export default {
           return 
         }
         habit.status = this.tempStatus;
-        console.log(habit.status);
       } else if (habit.type == "countPos" || habit.type == "countNeg") {
         if (habit.status == this.tempStatus){
           return 
         }
         habit.status = this.tempStatus;
-        console.log(habit.status);
       }
       updateHabit(habit);
-    },
-    add: function () {
-      console.log(this.habits);
     },
   },
 };

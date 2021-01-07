@@ -21,7 +21,6 @@ authCheck().then(()=>{
 
     if (email){
         loadUser(email.value).then(()=>{
-            console.log(streak.value, "USER STREAK")
         app.use(router);
         })
     }else{

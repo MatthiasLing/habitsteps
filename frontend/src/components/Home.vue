@@ -6,7 +6,7 @@
         <div class="row">
           <Habits  />
           <AddHabit />
-          <Streak/>
+          <!-- <Streak/> -->
         </div>
       </template>
       <template #fallback>
@@ -74,5 +74,10 @@ export default {
   display: flex;
   align-items: center;
   margin-left: 20px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+    display:inline-block;
+
 }
 </style>

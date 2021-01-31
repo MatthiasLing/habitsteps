@@ -1,8 +1,9 @@
 <template>
 
-  <div>
+  <div id = "home">
       <h1 class="title">About</h1>
   <div class="row">
+    <img src="../assets/steps.png" style="width: 300px; height: 600px;    " />
   <div class="columnL">
     <div class="textCol">
           <span class="habitSteps">HabitSteps</span> started as a winter break project
@@ -16,21 +17,19 @@
         features or membership. Because it was created in the span of several weeks,
           there are definitely areas for improvement. Please send any
           comments or suggestions to <span class="habitSteps" >habitsteps@gmail.com</span>. <br /><br />
-          In the meantime, check me out on
-          <a
-            style="white-space: nowrap"
-            href="https://www.linkedin.com/in/matthiasling/"
-            >LinkedIn</a
-          >
-          and
-          <a style="white-space: nowrap" href="https://github.com/MatthiasLing"
-            >GitHub</a
-          >!
+              <span class="habitSteps2">HabitSteps</span> came from the
+          belief that through cultivating good habits, we can become more
+          productive, engaged, and successful people - one step at a time.<br /><br/>
+
         
       </div>
-  </div>
+      <div class="textColR">
 
-  <div class="columnR">
+          </div>
+  </div>
+  
+
+  <!-- <div class="columnR">
     <img src="../assets/meditating.png" style="width: 300px;    " />
     <img src="../assets/dancing.png" style="width: 300px;    float: left;" />
     <div class="textColR">
@@ -38,7 +37,7 @@
           belief that through cultivating good habits, we can become more
           productive, engaged, and successful people - one step at a time.
           </div>
-  </div>
+  </div> -->
 
 </div>
 </div>
@@ -56,12 +55,15 @@ export default {
   box-sizing: border-box;
 }
 
+#home{
+  display:inline-block;
+}
+
 /* Create three equal columns that floats next to each other */
 .row .columnL {
   float: left;
   width: 50%;
   padding-left: 60px;
-  height: 300px; /* Should be removed. Only for demonstration */
 }
 .row .columnR {
   float: left;

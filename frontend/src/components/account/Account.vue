@@ -64,5 +64,6 @@ export default {
   padding: 20px;
 }
 #account {
+  display:inline-block;
 }
 </style>

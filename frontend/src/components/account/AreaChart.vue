@@ -1,8 +1,8 @@
 <template>
-  <div style ="margin-top:20px">
+  <div style="margin-top: 20px">
     <apexchart
       width="600"
-      height = "400px"
+      height="400px"
       type="area"
       style="margin-left: 20px"
       :options="chartOptions"
@@ -37,67 +37,94 @@ export default {
     },
 
     init() {
+
       days.value.sort((a, b) => (a.date > b.date ? 1 : -1));
       console.log(days.value);
+
+      const daySum = (accumulator, currentValue) => { 
+        if (currentValue.status >= currentValue.target){ 
+            accumulator += 1
+        }
+        return accumulator;
+      };
+
 
       var tempVals = [];
       var tempLabels = [];
 
-      for (var i = 0; i < days.value.length; i++) {
-        var cnt = 0;
-        for (var j = 0; j < days.value[i].habits.length; j++) {
-          if (
-            days.value[i].habits[j].status >= days.value[i].habits[j].target
-          ) {
-            cnt += 1;
-          }
-        }
+      for (var i = days.value.length-1; i >=0; i-=1) {
+        var cnt = days.value[i].habits.reduce(daySum,0)
+
         tempVals.push(parseInt(cnt, 10));
         var date = new Date(days.value[i].date);
-        tempLabels.push(date.getMonth() + 1 + "/" + date.getDate());
+        tempLabels.push(date);
+
+        if (i > 0){
+          var temp = new Date(date - 1000*60*60*24)
+          var prev = new Date(days.value[i-1].date);
+
+          while (temp - prev > 0){
+            tempVals.push(0);
+            tempLabels.push(temp);
+            temp = new Date(temp - 1000*60*60*24)
+          }
+        }
+
+        if (tempVals.length > 100){
+          break;
+        }
+      }
+
+      tempVals.reverse();
+      tempLabels.reverse();
+      var arr = []
+
+      for (var j=0;j<tempVals.length;j++){
+        arr.push([tempLabels[j].getTime(), tempVals[j]])
       }
 
       this.series = [
         {
           name: "Completed",
-          data: tempVals,
+          data: arr,
         },
       ];
 
-      this.chartOptions = {
-        xaxis: {
-          dataLabels: false,
-          categories: tempLabels,
-        },
-      };
+      this.chartOptions= {
+            chart: {
+              id: 'area-datetime',
+              type: 'area',
+              height: 350,
+              zoom: {
+                autoScaleYaxis: true
+              }
+            },
+
+            dataLabels: {
+              enabled: false
+            },
+            markers: {
+              size: 0,
+              style: 'hollow',
+            },
+            xaxis: {
+              type: 'datetime',
+              tickAmount: 6,
+            },
+            tooltip: {
+              x: {
+                format: 'dd MMM yyyy'
+              }
+            }
+          };
+
+
+
     },
   },
   data: function () {
     return {
-      chartOptions: {
-        chart: {
-          id: "area",
-        },
-        xaxis: {
-          categories: [],
-        },
-        dataLabels: {
-          enabled: true,
-        },
-
-        //
-        tooltip: {
-          custom: function ({ series, seriesIndex, dataPointIndex, w }) {
-            return (
-              '<div class="arrow_box">' +
-              "<span>" +
-              series[seriesIndex][dataPointIndex] +
-              "</span>" +
-              "</div>"
-            );
-          },
-        },
-      },
+     
       series: [
         {
           name: "Habits completed",
@@ -107,4 +134,9 @@ export default {
     };
   },
 };
+
+
+
+
+
 </script>

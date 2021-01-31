@@ -21,14 +21,13 @@
         id="count"
         v-if="habit.type == `countPos` || habit.type == `countNeg`"
         min="0"
-        max="100"
+        max="1000"
         placeholder="tempStatus"
         v-model="tempStatus"
         @change="update(habit)"
       />
       <h3 class ="label">{{ habit.title }}</h3>
-      <h4>{{ tempStatus }}/{{habit.target}}</h4>
-      <!-- <p>{{ habit.id }}</p> -->
+      <h4 v-if="habit.status < habit.target">{{ tempStatus }}/{{habit.target}}</h4>
     </button>
   </div>
 </template>
@@ -91,7 +90,7 @@ export default {
 
 .label {
   padding: 5px;
-  color:#FFDE59;
+  color:#F4CFFF;
 white-space: nowrap;
 text-overflow: ellipsis;
   overflow: hidden; 

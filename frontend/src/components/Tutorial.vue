@@ -15,7 +15,7 @@ export default {
       <div style="margin: 20px; padding: 10px">
         <h1 style="margin-bottom: 15px">Adding Habits</h1>
         <p style="font-size: 24px">
-          <span class="binary">Binary</span><br />
+          <span class="binary">One-time</span><br />
           A habit that's done <span class="bold">once</span> per day (making the
           bed, for example) <br /><br />
           <span class="count">Count</span><br />A
@@ -72,7 +72,7 @@ export default {
   background-color: white;
   width: 700px;
   height: 500px;
-  overflow: scroll;
+  overflow-y: scroll;
   display: flex;
   flex-direction: column;
 }

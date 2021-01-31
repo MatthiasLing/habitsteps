@@ -27,7 +27,7 @@
                 placeholder="Bool"
                 style="height: 30px"
               >
-                <option value="bool">Binary</option>
+                <option value="bool">One-time</option>
                 <option value="count">Count</option>
                 <option value="slide">Slider</option>
               </select>
